@@ -1,0 +1,21 @@
+import configparser
+
+from pyspark import SparkConf
+from pyspark.sql import SparkSession
+
+def get_spark_session(env):
+    if env == "LOCAL":
+        spark_conf = SparkConf()
+        config = configparser.ConfigParser()
+        config.read("conf/spark.conf")
+
+        items = list(config.items("LOCAL"))[:2]
+        for key, value in items:
+            spark_conf.set(key, value)
+
+        return SparkSession.builder \
+                .config("spark.driver.extraJavaOptions",
+                        "-Dlog4j.configuration=file:log4j.properties -Dspark.yarn.app.container.log.dir=app-logs -Dlogfile.name=sbdl-logs") \
+                .config(conf=spark_conf) \
+                .enableHiveSupport() \
+                .getOrCreate()
