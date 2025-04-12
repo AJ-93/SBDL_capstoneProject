@@ -19,3 +19,15 @@ def get_spark_session(env):
                 .config(conf=spark_conf) \
                 .enableHiveSupport() \
                 .getOrCreate()
+
+def get_app_config(env):
+    config = configparser.ConfigParser()
+    config.read("conf/sbdl.conf")
+    conf = {}
+    for key, value in config.items(env):
+        conf[key] = value
+    return conf
+
+def get_data_filter(env, data_filter):
+    conf = get_app_config(env)
+    return "true" if conf.get(data_filter) == ""  else conf.get(data_filter)
