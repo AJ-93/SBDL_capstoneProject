@@ -44,7 +44,7 @@ def load_parties(spark, env, enable_hive, hive_db):
         .schema(get_party_schema()) \
          .load("test_data/parties/party_samples.csv")
 
-def load_address(spark, env, data_filter, enable_hive, hive_db):
+def load_address(spark, env, enable_hive, hive_db):
     runtime_filter = get_data_filter(env, "address.filter")
     if enable_hive:
         return spark.sql("SELECT * FROM" + hive_db + "." + "party_address").where(runtime_filter)
@@ -53,4 +53,4 @@ def load_address(spark, env, data_filter, enable_hive, hive_db):
         .format("csv") \
         .option("header", "true") \
         .schema(party_address_schema()) \
-         .load("test_data/parties/address_samples.csv")
+         .load("test_data/party_address/address_samples.csv")

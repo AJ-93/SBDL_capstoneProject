@@ -1,4 +1,4 @@
-from pyspark.pandas import notnull
+
 from pyspark.sql.functions import *
 
 
@@ -22,7 +22,7 @@ def get_contract(df):
 
     )
 
-    contract_title_non_null_line = filter(contract_title, lambda x: ~notnull(x))
+    contract_title_non_null_line = filter(contract_title, lambda x: ~isnull(x))
 
     tax_identifier = struct(col("tax_id_type").alias("taxIdType"),
                             col("tax_id").alias("taxId")
