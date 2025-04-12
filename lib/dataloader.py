@@ -27,7 +27,7 @@ def load_accounts(spark, env, enable_hive, hive_db):
     if enable_hive:
         return spark.sql("SELECT * FROM" + hive_db + "." + "accounts").where(runtime_filter)
     else:
-        spark.read \
+      return  spark.read \
         .format("csv") \
         .option("header", "true") \
         .schema(get_account_schema()) \
@@ -38,7 +38,7 @@ def load_parties(spark, env, enable_hive, hive_db):
     if enable_hive:
         return spark.sql("SELECT * FROM" + hive_db + "." + "parties").where(runtime_filter)
     else:
-        spark.read \
+       return spark.read \
         .format("csv") \
         .option("header", "true") \
         .schema(get_party_schema()) \
@@ -49,7 +49,7 @@ def load_address(spark, env, data_filter, enable_hive, hive_db):
     if enable_hive:
         return spark.sql("SELECT * FROM" + hive_db + "." + "party_address").where(runtime_filter)
     else:
-        spark.read \
+       return spark.read \
         .format("csv") \
         .option("header", "true") \
         .schema(party_address_schema()) \
