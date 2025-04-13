@@ -31,7 +31,9 @@ def load_accounts(spark, env, enable_hive, hive_db):
         .format("csv") \
         .option("header", "true") \
         .schema(get_account_schema()) \
-         .load("test_data/accounts/account_samples.csv")
+         .load("test_data/accounts/account_samples.csv") \
+        .where(runtime_filter)
+
 
 def load_parties(spark, env, enable_hive, hive_db):
     runtime_filter = get_data_filter(env, "party.filter")

@@ -11,13 +11,15 @@ def get_insert_function(column, alias):
 def get_contract(df):
     contract_title = array(when(~isnull("legal_title_1"),
                                 struct(
-                                    lit("legal_title_ln_1").alias("contractTitleLineType"),
-                                )
+                                    lit("lgl_ttl_ln_1").alias("contractTitleLineType"),
+                                    col("legal_title_1").alias("contractTitleLine"),
+                                ).alias("contractTitle")
                                 ),
                            when(~isnull("legal_title_2"),
                                 struct(
-                                    lit("legal_title_ln_2").alias("contractTitleLineType"),
-                                )
+                                    lit("lgl_ttl_ln_2").alias("contractTitleLineType"),
+                                    col("legal_title_2").alias("contractTitleLine")
+                                ).alias("contractTitle")
                                 ),
 
     )
