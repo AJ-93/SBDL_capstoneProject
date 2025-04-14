@@ -1,4 +1,1 @@
-spark-submit --master yarn --deploy-mode cluster \
---py-files sdbl_lib.zip \
---files conf/sdbl.conf,conf/spark.conf,log4j.properties \
-sbdl_main.py qa 2022-08-02
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.4.4 main.py local 2022-08-02
